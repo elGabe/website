@@ -1,0 +1,58 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Averia+Libre:wght@300&family=VT323&display=swap');
+
+:root {
+    --yellow: #FFEE7E;
+    --pink: #FF0050;
+}
+
+::selection {
+    color: #FFFFFF;
+    background: black;
+}
+
+* {
+    cursor: pointer;
+}
+
+body {
+    background-color: var(--yellow);
+    margin-left: 30px;
+}
+
+.content {
+    font-family: 'Averia Libre', system-ui;
+}
+
+.banner {
+    color: var(--pink);
+    font-family: 'VT323', monospace;
+    font-size: 3em;
+    margin: 0px;
+}
+
+.navbar ul {
+    list-style-type: none;
+    background-color: var(--yellow);
+    padding: 0px;
+    margin: 0px;
+    margin-top: -50px;
+    overflow: hidden;
+    font-family: 'Averia Libre', system-ui;
+}
+
+.navbar li {
+    float: left;
+}
+
+.navbar a {
+    color: var(--pink);
+    text-decoration: none;
+    padding: 15px;
+    display: block;
+}
+
+.navbar a:hover {
+    border-style: dashed;
+    cursor: help;
+}
