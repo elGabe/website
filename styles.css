@@ -18,6 +18,7 @@
 body {
     background-color: var(--yellow);
     margin-left: 30px;
+    font-family: 'Averia Libre', monospace;
 }
 
 .content {
