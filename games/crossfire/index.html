@@ -6,9 +6,10 @@ kaboom({
     width: 128,
     height: 256,
     background: [30, 30, 30],
-    crisp: false,
+    crisp: true,
     stretch: true,
-    letterbox: true
+    letterbox: true,
+    pixelDensity: 1
 });
 
 randSeed(Date.now());
@@ -140,9 +141,8 @@ function spawnRockets() {
 
     const rocket_l = add([
         pos(-42, 0),
-        rect(24, 32),
-        color(30, 30, 30),
-        outline(2, rgb(255, 0, 80)),
+        rect(24, 32, {fill: false}),
+        outline(4, rgb(255, 0, 80)),
         area(),
         offscreen({ destroy: true }),
         {
@@ -155,8 +155,8 @@ function spawnRockets() {
     const rocket_r = add([
         pos(width()+42, 0),
         color(30, 30, 30),
-        rect(24, 32),
-        outline(2, rgb(255, 0, 80)),
+        rect(24, 32, {fill: false}),
+        outline(4, rgb(255, 0, 80)),
         area(),
         offscreen({ destroy: true }),
         {
@@ -225,7 +225,7 @@ function spawnBullets() {
     const bullet_l = add([
         pos(h_space, rand(v_space, height()-8)),
         circle(6),
-        color(0, 0, 0),
+        color(255, 0, 80),
         "bullets",
         "damage",
         area(),
@@ -252,7 +252,7 @@ function spawnBullets() {
     const bullet_r = add([
         pos(width()-h_space, next_y),
         circle(6),
-        color(0, 0, 0),
+        color(255, 0, 80),
         offscreen({ destroy: true }),
         "bullets",
         "damage",
@@ -296,7 +296,7 @@ function spawnDisc() {
     const disc = add([
         pos(width()/2, -16),
         anchor("center"),
-        color(0, 0, 0),
+        color(255, 0, 80),
         circle(12),
         {
             anchor_y: height()/2,
@@ -385,9 +385,9 @@ loop(bulletsTimer, spawnBullets);
 
 onUpdate("damage", (obj) => {
      if (obj.is_active) {
-        obj.color = rgb(255, 0, 80);
+        obj.opacity = 1;
      } else {
-        obj.color = rgb(0, 0, 0);
+        obj.opacity = 0.3;
      }
 });
 
@@ -406,8 +406,9 @@ let fallSpeed       = FALL_SPEED;
 let jumpSpeed       = 400;
 
 const Player = add([
-    rect(PLAYER_WIDTH, PLAYER_WIDTH, {fill: false}),
-    outline(2, MAGENTA),
+    color(MAGENTA),
+    rect(PLAYER_WIDTH, PLAYER_WIDTH),
+    //outline(2, MAGENTA),
     pos(width()/2, height()/2),
     anchor("center"),
     rotate(0),
