@@ -16,30 +16,38 @@ randSeed(Date.now());
 
 const TWO_PI = Math.PI * 2;
 
+loadFont("font", "font.ttf", {filter: "nearest"});
+
 // SCENE: MENU
 
 scene("menu", () => {
-    
-    add([
-        pos(width()/2, 64),
-        anchor("center"),
-        text("Crossed Fire", {size: 16})
-    ]);
 
-    add([
-        pos(width()/2, 128),
-        anchor("center"),
-        text("click to start", {size: 12})
-    ]);
+setCursor("none");
 
-    // INPUT EVENTS
-    onKeyPress("space", () => {
-        go("game");
-    });
+add([
+    pos(width()/2, 64),
+    anchor("center"),
+    text("Crossed \nFire", {size: 18, font: "font"})
+]);
 
-    onMousePress("left", () => {
-        go("game");
-    });
+add([
+    pos(width()/2, 128),
+    anchor("center"),
+    text("click to start", {size: 16, font: "font"})
+]);
+
+// INPUT EVENTS
+onKeyPress("space", () => {
+    go("game");
+});
+
+onMousePress("left", () => {
+    go("game");
+});
+
+onKeyPress("f", () => {
+    setFullscreen(!isFullscreen());
+});
 });
 
 // SCENE: GAME
@@ -53,9 +61,10 @@ let score = 0;
 
 const ScoreText = add([
     pos(width()/2, height()/2),
-    text("0", {size: 48}),
+    text("0", {size: 48, font: "font"}),
     anchor("center"),
-    color(20, 20, 20),
+    color(MAGENTA),
+    opacity(0.2),
     {anchor_y: height()/2}
 ]);
 
@@ -91,7 +100,7 @@ function setScore(newScore) {
 
 // WALLS
 
-const wallWidth     = 10;
+const wallWidth     = 1;
 const wallHeight    = height();
 
 const Walls = 
@@ -142,7 +151,7 @@ function spawnRockets() {
     const rocket_l = add([
         pos(-42, 0),
         rect(24, 32, {fill: false}),
-        outline(4, rgb(255, 0, 80)),
+        outline(2, rgb(255, 0, 80)),
         area(),
         offscreen({ destroy: true }),
         {
@@ -156,7 +165,7 @@ function spawnRockets() {
         pos(width()+42, 0),
         color(30, 30, 30),
         rect(24, 32, {fill: false}),
-        outline(4, rgb(255, 0, 80)),
+        outline(2, rgb(255, 0, 80)),
         area(),
         offscreen({ destroy: true }),
         {
@@ -222,8 +231,10 @@ function spawnBullets() {
 
     const dir = choose([-1, 1]);
 
+    let y = Player.pos.y + (bulletGap/2) * dir;
+
     const bullet_l = add([
-        pos(h_space, rand(v_space, height()-8)),
+        pos(h_space, y),
         circle(6),
         color(255, 0, 80),
         "bullets",
@@ -248,9 +259,11 @@ function spawnBullets() {
     if (next_y < v_space || next_y > height() - 8) {
         next_y = bullet_l.pos.y - gap;
     }
+
+    y = Player.pos.y - (bulletGap/2) * dir;
     
     const bullet_r = add([
-        pos(width()-h_space, next_y),
+        pos(width()-h_space, y),
         circle(6),
         color(255, 0, 80),
         offscreen({ destroy: true }),
@@ -398,7 +411,7 @@ const MOVE_SPEED    =  120;
 const FALL_SPEED    =  420;
 const SLIDE_SPEED   =  120;
 
-const PLAYER_WIDTH  =   10;
+const PLAYER_WIDTH  =   12;
 
 let direction       = choose([-1, 1]);
 let onWall          = false;
@@ -507,6 +520,10 @@ onKeyPress("space", () => {
 
 onMousePress("left", () => {
     playerJump();
+});
+
+onKeyPress("f", () => {
+    setFullscreen(!isFullscreen());
 });
 
 // CALLBACKS
