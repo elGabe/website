@@ -74,25 +74,17 @@ function setScore(newScore) {
     let unlock = "";
     switch (score) {
     case 3:
-        startBullets = true;
-        break;
-    case 5:
-        unlock = "disc";
-        break;
-    case 8:
-        unlock = "rockets";
-        break;
-    case 13:
-        unlock = "lasers";
-        break;
-    }
-
-    if (unlock != "") {
+        unlock = "bullets";
         hazards.push(unlock);
-    }
-
-    if (score == 5) {
-        spawnHazard();
+        break;
+    case 10:
+        unlock = "disc";
+        hazards.push(unlock);
+        break;
+    case 18:
+        unlock = "rockets";
+        hazards.push(unlock);
+        break;
     }
 
     ScoreText.text = score;
@@ -193,6 +185,8 @@ function spawnRockets() {
             shake(2);
         });
     });
+
+    hasHazard = true;
 }
 
 function moveRockets(r1, r2) {
@@ -207,21 +201,20 @@ function moveRockets(r1, r2) {
     );
 
     move_1.onEnd(() => {
-        spawnHazard();
         destroy(r1);
         destroy(r2);
+        hasHazard = false;
     });
 }
 
 // BULLETS
 
-let startBullets = false;
 let bulletsTimer = 2.2;
 let bulletGap = 64;
 
 function spawnBullets() {
 
-    if (!startGame || !startBullets) {
+    if (!startGame) {
         return;
     }
 
@@ -283,11 +276,17 @@ function spawnBullets() {
         anchor("center")
     ]);
 
+    bullet_l.onExitScreen(() => {
+        hasHazard = false;
+    });
+
     wait(1, () => {
         bullet_l.is_active = true;
         bullet_r.is_active = true;
         shake(2);
     });
+
+    hasHazard = true;
 }
 
 onUpdate("bullets", (b) => {
@@ -339,6 +338,8 @@ function spawnDisc() {
             wait(1, () => {discOutro(disc);});
         });
     });
+
+    hasHazard = true;
 }
 
 function discOutro(disc) {
@@ -348,8 +349,8 @@ function discOutro(disc) {
     );
 
     outro.onEnd(() => {
-        spawnHazard();
         destroy(disc);
+        hasHazard = false;
     });
 }
 
@@ -367,11 +368,20 @@ let previousHazard = null;
 
 let hazards = []
 
+let hasHazard = false;
+
+let hazardTimer = 2;
+
 function spawnHazard() {
+
+    if (hazards.length == 0 || hasHazard) {
+        return;
+    }
 
     let pick = choose(hazards);
 
     while (pick == previousHazard) {
+        if (hazards.length == 1) {break;}
         pick = choose(hazards);
     }
 
@@ -379,8 +389,12 @@ function spawnHazard() {
 
     switch (nextHazard) {
     
+    case "bullets":
+        spawnBullets();
+        break;
+
     case "disc":
-        spawnDisc();    
+        spawnDisc();
         break;
 
     case "rockets":
@@ -394,7 +408,7 @@ function spawnHazard() {
     previousHazard = nextHazard;
 }
 
-loop(bulletsTimer, spawnBullets);
+loop(hazardTimer, spawnHazard);
 
 onUpdate("damage", (obj) => {
      if (obj.is_active) {
