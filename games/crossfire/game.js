@@ -71,17 +71,25 @@ function setScore(newScore) {
 
     let unlock = "";
     switch (score) {
-    case 3:
-        unlock = "bullets";
-        hazards.push(unlock);
+        case 3:
+            unlock = "bullets";
+            hazards.push(unlock);
         break;
-    case 10:
-        unlock = "disc";
-        hazards.push(unlock);
+
+        case 10:
+            unlock = "disc";
+            hazards.push(unlock);
         break;
-    case 18:
-        unlock = "rockets";
-        hazards.push(unlock);
+
+        case 18:
+            unlock = "rockets";
+            hazards.push(unlock);
+        break;
+
+        case 26:
+            unlock = "spikes";
+            hazards.push(unlock);
+            console.log(hazards);
         break;
     }
 
@@ -370,7 +378,7 @@ function spawnSpikes() {
     const w = 6;
     const h = 48;
     let _x;
-    const _y = rand(8, height() - h - 8);
+    const _y = h/2 + rand(8, height() - h - 8);
     
     let spikes = []
 
@@ -392,9 +400,7 @@ function spawnSpikes() {
             "damage"
         ]);
 
-        console.log("Y: " + _y);
-
-        const intro = tween(spike.pos.x, target_x, 1,
+        tween(spike.pos.x, target_x, 1,
             (x) => {spike.pos.x = x},
             easings.linear
         );
@@ -413,9 +419,14 @@ function spawnSpikes() {
                 (x) => {s.pos.x = x}
             );
 
-            tweenOut.onEnd(() => {destroy(s)});
+            tweenOut.onEnd(() => {
+                destroy(s);
+                hasHazard = false;
+            });
         });
     });
+
+    hasHazard = true;
 
     return spikes;
 }
@@ -423,6 +434,7 @@ function spawnSpikes() {
 function outroSpikes(spikes, endFunction) {
     for (let i = 0; i < spikes.length; i++) {
         const s = spikes[i];
+        s.is_active = false;
         endFunction(s);
     }
 }   
@@ -463,6 +475,10 @@ function spawnHazard() {
         spawnRockets();
         break;
 
+    case "spikes":
+        spawnSpikes();
+        break;
+
     default:
         break;
     }
@@ -470,7 +486,7 @@ function spawnHazard() {
     previousHazard = nextHazard;
 }
 
-loop(hazardTimer, spawnSpikes);
+loop(hazardTimer, spawnHazard);
 
 onUpdate("damage", (obj) => {
         if (obj.is_active) {
