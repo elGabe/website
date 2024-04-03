@@ -360,14 +360,78 @@ onUpdate("disc", (disc) => {
     }
 });
 
+function spawnSpikes() {
+    
+    // Choose whether to spawn 1 or 2 spikes
+    const n = choose([1, 2]);
+
+    // Pick which side to spawn it at first
+    let side = choose([-1, 1]);
+    const w = 6;
+    const h = 48;
+    let _x;
+    const _y = rand(8, height() - h - 8);
+    
+    let spikes = []
+
+    for (let i = 0; i < n; i++) {
+
+        let target_x = width()/2 + 60 * side;
+        _x = target_x + 108 * side;
+
+        const spike = add([
+            pos(_x, _y),
+            rect(w, h),
+            color(255, 0, 80),
+            area(),
+            anchor("center"),
+            {
+                side: side,
+                is_active: true
+            },
+            "damage"
+        ]);
+
+        console.log("Y: " + _y);
+
+        const intro = tween(spike.pos.x, target_x, 1,
+            (x) => {spike.pos.x = x},
+            easings.linear
+        );
+
+        spikes.push(spike);
+
+        side = -side;
+    }
+
+    wait(2, () => {
+        outroSpikes(spikes, (s) => {
+            const tweenOut = tween(
+                s.pos.x, 
+                width()/2 + 168 * s.side, 
+                1, 
+                (x) => {s.pos.x = x}
+            );
+
+            tweenOut.onEnd(() => {destroy(s)});
+        });
+    });
+
+    return spikes;
+}
+
+function outroSpikes(spikes, endFunction) {
+    for (let i = 0; i < spikes.length; i++) {
+        const s = spikes[i];
+        endFunction(s);
+    }
+}   
+
 // SPAWNER
 
 let previousHazard = null;
-
 let hazards = []
-
 let hasHazard = false;
-
 let hazardTimer = 2;
 
 function spawnHazard() {
@@ -406,7 +470,7 @@ function spawnHazard() {
     previousHazard = nextHazard;
 }
 
-loop(hazardTimer, spawnHazard);
+loop(hazardTimer, spawnSpikes);
 
 onUpdate("damage", (obj) => {
         if (obj.is_active) {
@@ -432,8 +496,8 @@ let jumpSpeed       = 400;
 
 const Player = add([
     color(MAGENTA),
-    rect(PLAYER_WIDTH, PLAYER_WIDTH),
-    //outline(2, MAGENTA),
+    rect(PLAYER_WIDTH, PLAYER_WIDTH, {fill: false}),
+    outline(2, MAGENTA),
     pos(width()/2, height()/2),
     anchor("center"),
     rotate(0),
