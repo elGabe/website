@@ -89,7 +89,6 @@ function setScore(newScore) {
         case 26:
             unlock = "spikes";
             hazards.push(unlock);
-            console.log(hazards);
         break;
     }
 
