@@ -206,7 +206,7 @@ function moveRockets(r1, r2) {
         easings.linear
     );
 
-    const move_2 = tween(r2.pos.y, height()+8, 1, 
+    tween(r2.pos.y, height()+8, 1, 
         (y) => {r2.pos.y = y}, 
         easings.linear
     );
@@ -220,7 +220,6 @@ function moveRockets(r1, r2) {
 
 // BULLETS
 
-let bulletsTimer = 2.2;
 let bulletGap = 64;
 
 function spawnBullets() {
