@@ -43,6 +43,12 @@ onMousePress("left", () => {
     go("game");
 });
 
+onTouchEnd((pos, t) => {
+    if (!isFullscreen()) {
+        setFullscreen(true);
+    }
+});
+
 onKeyPress("f", () => {
     setFullscreen(!isFullscreen());
 });
