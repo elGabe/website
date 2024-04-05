@@ -7,12 +7,20 @@ kaboom({
     crisp: true,
     stretch: true,
     letterbox: true,
-    pixelDensity: 1
+    pixelDensity: 1,
+    texFilter: "nearest",
+    //canvas: document.querySelector("#gameCanvas")
 });
 
 randSeed(Date.now());
 
 const TWO_PI = Math.PI * 2;
+
+const COLORS = {
+    object:     Color.fromHex(0xEA33F7),
+    hazard:     Color.fromHex(0xFF0050),
+    background: Color.fromHex(0x1E1E1E)
+};
 
 loadFont("font", "font.ttf", {filter: "nearest"});
 
@@ -67,34 +75,34 @@ const ScoreText = add([
     pos(width()/2, height()/2),
     text("0", {size: 48, font: "font"}),
     anchor("center"),
-    color(MAGENTA),
+    color(COLORS.object),
     opacity(0.2),
     {anchor_y: height()/2}
 ]);
 
 function setScore(newScore) {
+    
     score = newScore;
 
-    let unlock = "";
     switch (score) {
         case 3:
-            unlock = "bullets";
-            hazards.push(unlock);
+            hazards.push("bullets");
         break;
 
         case 10:
-            unlock = "disc";
-            hazards.push(unlock);
+            hazards.push("disc");
         break;
 
         case 18:
-            unlock = "rockets";
-            hazards.push(unlock);
+            hazards.push("rockets");
         break;
 
         case 26:
-            unlock = "spikes";
-            hazards.push(unlock);
+            hazards.push("spikes");
+        break;
+
+        case 5:
+            hazards.push("lasers");
         break;
     }
 
@@ -134,14 +142,14 @@ function drawWalls() {
         p1: vec2(wallWidth, 0),
         p2: vec2(wallWidth, wallHeight),
         width: 2,
-        color: MAGENTA
+        color: COLORS.object
     });
 
     drawLine({
         p1: vec2(width()-wallWidth, 0),
         p2: vec2(width()-wallWidth, wallHeight),
         width: 2,
-        color: MAGENTA
+        color: COLORS.object
     });
 }
 
@@ -154,7 +162,7 @@ function spawnRockets() {
     const rocket_l = add([
         pos(-42, 0),
         rect(24, 32, {fill: false}),
-        outline(2, rgb(255, 0, 80)),
+        outline(2, COLORS.hazard),
         area(),
         offscreen({ destroy: true }),
         {
@@ -166,9 +174,9 @@ function spawnRockets() {
 
     const rocket_r = add([
         pos(width()+42, 0),
-        color(30, 30, 30),
+        color(COLORS.background),
         rect(24, 32, {fill: false}),
-        outline(2, rgb(255, 0, 80)),
+        outline(2, COLORS.hazard),
         area(),
         offscreen({ destroy: true }),
         {
@@ -239,7 +247,7 @@ function spawnBullets() {
     const bullet_l = add([
         pos(h_space, y),
         circle(6),
-        color(255, 0, 80),
+        color(COLORS.hazard),
         "bullets",
         "damage",
         area(),
@@ -252,7 +260,7 @@ function spawnBullets() {
     ]);
 
     bullet_l.add([
-        color(30, 30, 30),
+        color(COLORS.background),
         circle(4),
         anchor("center")
     ]);
@@ -268,7 +276,7 @@ function spawnBullets() {
     const bullet_r = add([
         pos(width()-h_space, y),
         circle(6),
-        color(255, 0, 80),
+        color(COLORS.hazard),
         offscreen({ destroy: true }),
         "bullets",
         "damage",
@@ -281,7 +289,7 @@ function spawnBullets() {
     ]);
 
     bullet_r.add([
-        color(30, 30, 30),
+        color(COLORS.background),
         circle(4),
         anchor("center")
     ]);
@@ -318,7 +326,7 @@ function spawnDisc() {
     const disc = add([
         pos(width()/2, -16),
         anchor("center"),
-        color(255, 0, 80),
+        color(COLORS.hazard),
         circle(12),
         {
             anchor_y: height()/2,
@@ -331,7 +339,7 @@ function spawnDisc() {
     ]);
 
     disc.add([
-        color(30, 30, 30),
+        color(COLORS.background),
         circle(10),
         anchor("center")
     ]);
@@ -343,6 +351,7 @@ function spawnDisc() {
 
     intro.onEnd(() => {
         disc.is_active = true;
+        shake(2);
         wait(discCyclesWait / discCycles, () => {
             disc.is_active = false;
             wait(1, () => {discOutro(disc);});
@@ -372,6 +381,8 @@ onUpdate("disc", (disc) => {
     }
 });
 
+//SPIKES
+
 function spawnSpikes() {
     
     // Choose whether to spawn 1 or 2 spikes
@@ -394,7 +405,7 @@ function spawnSpikes() {
         const spike = add([
             pos(_x, _y),
             rect(w, h),
-            color(255, 0, 80),
+            color(COLORS.hazard),
             area(),
             anchor("center"),
             {
@@ -404,10 +415,14 @@ function spawnSpikes() {
             "damage"
         ]);
 
-        tween(spike.pos.x, target_x, 1,
+        const intro = tween(spike.pos.x, target_x, 1,
             (x) => {spike.pos.x = x},
             easings.linear
         );
+
+        intro.onEnd(() => {
+            shake(2);
+        });
 
         spikes.push(spike);
 
@@ -441,7 +456,62 @@ function outroSpikes(spikes, endFunction) {
         s.is_active = false;
         endFunction(s);
     }
-}   
+}
+
+// LASERS
+function spawnLasers() {
+
+    const center = width()/2;
+    const targetHeight = 8;
+
+    const laser_l = add([
+        pos(center, 8),
+        rect(120, 0),
+        color(COLORS.hazard),
+        area(),
+        anchor("center"),
+        "damage",
+        {is_active: false}
+    ]);
+
+    const laser_r = add([
+        pos(center, height() - 16),
+        rect(120, 0),
+        color(COLORS.hazard),
+        area(),
+        "damage",
+        anchor("center"),
+        {is_active: false}
+    ]);
+
+    const intro = tween(laser_l.height, targetHeight, 0.6, (h) => {
+        laser_l.height = h
+    }, easings.easeOutBack);
+
+    tween(laser_r.height, targetHeight, 0.6, (h) => {
+        laser_r.height = h
+    }, easings.easeOutBack);
+
+    intro.onEnd(() => {
+        laser_l.is_active = true;
+        laser_r.is_active = true;
+    });
+
+    wait(2, () => {
+        const outro = tween(laser_r.height, 0, 0.6, (h) => {
+            laser_r.height = h
+        }, easings.linear);
+    
+        tween(laser_l.height, 0, 0.6, (h) => {
+            laser_l.height = h
+        }, easings.easeOutBack);
+    
+        outro.onEnd(() => {
+            destroy(laser_l);
+            destroy(laser_r);
+        });
+    });
+}
 
 // SPAWNER
 
@@ -467,23 +537,27 @@ function spawnHazard() {
 
     switch (nextHazard) {
     
-    case "bullets":
-        spawnBullets();
+        case "bullets":
+            spawnBullets();
         break;
 
-    case "disc":
-        spawnDisc();
+        case "disc":
+            spawnDisc();
         break;
 
-    case "rockets":
-        spawnRockets();
+        case "rockets":
+            spawnRockets();
         break;
 
-    case "spikes":
-        spawnSpikes();
+        case "spikes":
+            spawnSpikes();
         break;
 
-    default:
+        case "lasers":
+            spawnLasers();
+        break;
+
+        default:
         break;
     }
 
@@ -515,9 +589,9 @@ let fallSpeed       = FALL_SPEED;
 let jumpSpeed       = 400;
 
 const Player = add([
-    color(MAGENTA),
+    color(COLORS.object),
     rect(PLAYER_WIDTH, PLAYER_WIDTH, {fill: false}),
-    outline(2, MAGENTA),
+    outline(2, COLORS.object),
     pos(width()/2, height()/2),
     anchor("center"),
     rotate(0),
