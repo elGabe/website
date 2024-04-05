@@ -24,6 +24,8 @@ const COLORS = {
 
 loadFont("font", "font.ttf", {filter: "nearest"});
 
+let highScore = 0;
+
 // SCENE: MENU
 
 scene("menu", () => {
@@ -65,6 +67,8 @@ onKeyPress("f", () => {
 // SCENE: GAME
 scene("game", () => {
 
+console.log(highScore);
+
 // UI
 
 let startGame = false;
@@ -80,9 +84,25 @@ const ScoreText = add([
     {anchor_y: height()/2}
 ]);
 
+const HighScoreText = add([
+    pos(width()/2, height()/2 + 32),
+    text("0", {size: 24, font: "font"}),
+    anchor("center"),
+    color(COLORS.object),
+    opacity(0.2),
+    {anchor_y: height()/2}
+]);
+
+HighScoreText.text = highScore;
+
 function setScore(newScore) {
     
     score = newScore;
+
+    if (score > highScore) {
+        highScore = score;
+        HighScoreText.text = highScore;
+    }
 
     switch (score) {
         case 3:
