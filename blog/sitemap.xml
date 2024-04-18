@@ -2,29 +2,29 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/about/</loc>
+    <loc>https://gabe.fun/blog/about/</loc>
     <lastmod>2024-04-16T18:35:57-04:00</lastmod>
   </url><url>
-    <loc>/</loc>
+    <loc>https://gabe.fun/blog/</loc>
     <lastmod>2024-04-16T18:35:57-04:00</lastmod>
   </url><url>
-    <loc>/games/</loc>
+    <loc>https://gabe.fun/blog/games/</loc>
     <lastmod>2024-04-16T18:35:57-04:00</lastmod>
   </url><url>
-    <loc>/blog/posts/bad-design-beer-pong/</loc>
+    <loc>https://gabe.fun/blog/blog/posts/bad-design-beer-pong/</loc>
     <lastmod>2023-09-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/posts/</loc>
+    <loc>https://gabe.fun/blog/posts/</loc>
     <lastmod>2023-09-04T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/blog/posts/burnout-jobs-and-adulthood/</loc>
+    <loc>https://gabe.fun/blog/blog/posts/burnout-jobs-and-adulthood/</loc>
     <lastmod>2023-08-23T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/blog/posts/introducing-the-blog/</loc>
+    <loc>https://gabe.fun/blog/blog/posts/introducing-the-blog/</loc>
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>/categories/</loc>
+    <loc>https://gabe.fun/blog/categories/</loc>
   </url><url>
-    <loc>/tags/</loc>
+    <loc>https://gabe.fun/blog/tags/</loc>
   </url>
 </urlset>
