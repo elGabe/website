@@ -7,8 +7,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>About | Da Gabe Agenda</title>
 <meta name="title" content="About" />
-<meta name="description" content="About Me
-My name is Gabe - I&rsquo;m a game designer &amp; music maker based in Ontario, Canada.
+<meta name="description" content="About Me My name is Gabe - I&rsquo;m a game designer &amp; music maker based in Ontario, Canada.
 When I&rsquo;m not clocked in working on a AAA game, I&rsquo;m thinking about art, science and philosophy, or working on side projects for fun.
 I decided to start this blog thing to have a convenient place to put blurbs on topics I&rsquo;m interested about. Anything from lists of cool drug trip scenes in games, or essays about whatever." />
 <meta name="keywords" content="" />
@@ -17,8 +16,7 @@ I decided to start this blog thing to have a convenient place to put blurbs on t
 <meta property="og:url" content="/about/">
   <meta property="og:site_name" content="Da Gabe Agenda">
   <meta property="og:title" content="About">
-  <meta property="og:description" content="About Me
-My name is Gabe - I&amp;rsquo;m a game designer &amp;amp; music maker based in Ontario, Canada.
+  <meta property="og:description" content="About Me My name is Gabe - I&amp;rsquo;m a game designer &amp;amp; music maker based in Ontario, Canada.
 When I&amp;rsquo;m not clocked in working on a AAA game, I&amp;rsquo;m thinking about art, science and philosophy, or working on side projects for fun.
 I decided to start this blog thing to have a convenient place to put blurbs on topics I&amp;rsquo;m interested about. Anything from lists of cool drug trip scenes in games, or essays about whatever.">
   <meta property="og:locale" content="en-us">
@@ -30,8 +28,7 @@ I decided to start this blog thing to have a convenient place to put blurbs on t
 
 
 <meta name="twitter:card" content="summary"><meta name="twitter:title" content="About">
-<meta name="twitter:description" content="About Me
-My name is Gabe - I&rsquo;m a game designer &amp; music maker based in Ontario, Canada.
+<meta name="twitter:description" content="About Me My name is Gabe - I&rsquo;m a game designer &amp; music maker based in Ontario, Canada.
 When I&rsquo;m not clocked in working on a AAA game, I&rsquo;m thinking about art, science and philosophy, or working on side projects for fun.
 I decided to start this blog thing to have a convenient place to put blurbs on topics I&rsquo;m interested about. Anything from lists of cool drug trip scenes in games, or essays about whatever.">
 
@@ -39,8 +36,7 @@ I decided to start this blog thing to have a convenient place to put blurbs on t
 
 
   <meta itemprop="name" content="About">
-  <meta itemprop="description" content="About Me
-My name is Gabe - I&rsquo;m a game designer &amp; music maker based in Ontario, Canada.
+  <meta itemprop="description" content="About Me My name is Gabe - I&rsquo;m a game designer &amp; music maker based in Ontario, Canada.
 When I&rsquo;m not clocked in working on a AAA game, I&rsquo;m thinking about art, science and philosophy, or working on side projects for fun.
 I decided to start this blog thing to have a convenient place to put blurbs on topics I&rsquo;m interested about. Anything from lists of cool drug trip scenes in games, or essays about whatever.">
   <meta itemprop="datePublished" content="2024-04-16T18:35:57-04:00">
@@ -491,7 +487,9 @@ th {
     margin-bottom: 10px;
 }
 </style>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💿</text></svg>"></head>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💿</text></svg>">
+
+<script src="/homepage.js"></script></head>
 
 <body>
   <header><style>
@@ -534,7 +532,7 @@ th {
   <main>
 
 <content>
-  <p>About Me</p>
+  <h1 id="about-me">About Me</h1>
 <p>My name is Gabe - I&rsquo;m a game designer &amp; music maker based in Ontario, Canada.</p>
 <p><img src="/images/hack.png" alt="Picture of me"></p>
 <p>When I&rsquo;m not clocked in working on a AAA game, I&rsquo;m thinking about art, science and philosophy, or working on side projects for fun.</p>
@@ -568,10 +566,34 @@ body {
     background-size: 10%;
 }
 
+content h1 {
+    font-family: var(--font-main);
+    font-size: 3em;
+    display: inline;
+}
+
+content h2 {
+    color: var(--pink);
+    font-family: var(--font-main);
+    font-size: 2em;
+}
+
 main {
     background-color: var(--yellow);
 }
 
-</style></body>
+#tileButton {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background-color: var(--yellow);
+}
+
+</style>
+
+<div id = "tileButton">
+    <label for="tileImages">Use Tiled Background?</label>
+    <input type="checkbox" name="tileImages" id="btnTile"onchange="onTileCheckboxUsed(this)" checked>
+</div></body>
 
 </html>

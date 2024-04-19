@@ -472,7 +472,9 @@ th {
     margin-bottom: 10px;
 }
 </style>
-<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💿</text></svg>"></head>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💿</text></svg>">
+
+<script src="/homepage.js"></script></head>
 
 <body>
   <header><style>
@@ -547,10 +549,34 @@ body {
     background-size: 10%;
 }
 
+content h1 {
+    font-family: var(--font-main);
+    font-size: 3em;
+    display: inline;
+}
+
+content h2 {
+    color: var(--pink);
+    font-family: var(--font-main);
+    font-size: 2em;
+}
+
 main {
     background-color: var(--yellow);
 }
 
-</style></body>
+#tileButton {
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    background-color: var(--yellow);
+}
+
+</style>
+
+<div id = "tileButton">
+    <label for="tileImages">Use Tiled Background?</label>
+    <input type="checkbox" name="tileImages" id="btnTile"onchange="onTileCheckboxUsed(this)" checked>
+</div></body>
 
 </html>
