@@ -24,6 +24,10 @@ const COLORS = {
 loadFont("font", "font.ttf", {filter: "nearest"});
 
 let highScore = 0;
+let hiscoreValue = localStorage.getItem("hiscore");
+if (hiscoreValue) {
+    highScore = Number(hiscoreValue);
+}
 
 // SCENE: MENU
 
@@ -663,6 +667,7 @@ Player.onCollide("damage", (obj) => {
     Player.collisionIgnore = ["wall"];
     shake(8);
     Player.vel.y = -300;
+    localStorage.setItem("hiscore", highScore.toString());
     wait(2, () => { go("game"); });
 });
 
