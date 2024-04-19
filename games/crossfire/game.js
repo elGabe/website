@@ -544,9 +544,6 @@ let hazardTimer = 2;
 
 function spawnHazard() {
 
-    spawnSpikes();
-    return;
-
     if (hazards.length == 0 || hasHazard) {
         return;
     }
