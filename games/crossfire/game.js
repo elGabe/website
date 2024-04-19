@@ -9,7 +9,6 @@ kaboom({
     letterbox: true,
     pixelDensity: 1,
     texFilter: "nearest",
-    //canvas: document.querySelector("#gameCanvas")
 });
 
 randSeed(Date.now());
@@ -415,7 +414,7 @@ function spawnSpikes() {
     let _x;
     const _y = h/2 + rand(8, height() - h - 8);
     
-    let spikes = []
+    let spikes = [];
 
     for (let i = 0; i < n; i++) {
 
@@ -430,7 +429,7 @@ function spawnSpikes() {
             anchor("center"),
             {
                 side: side,
-                is_active: true
+                is_active: false
             },
             "damage"
         ]);
@@ -441,7 +440,10 @@ function spawnSpikes() {
         );
 
         intro.onEnd(() => {
-            shake(2);
+            wait(0.5, () => {
+                spike.is_active = true;
+                shake(2);
+            });
         });
 
         spikes.push(spike);
@@ -541,6 +543,9 @@ let hasHazard = false;
 let hazardTimer = 2;
 
 function spawnHazard() {
+
+    spawnSpikes();
+    return;
 
     if (hazards.length == 0 || hasHazard) {
         return;
