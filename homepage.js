@@ -1,15 +1,19 @@
 
-
 window.onload = function() {
 
     const value = window.localStorage.getItem("useTiles")
 
-    if (value == "true" || value == "" || value == null) {
+    if (value == null) {
         setTiles()
         document.getElementById("btnTile").checked = true
-    } else if (value == "false") {
+    }
+
+    if (value == "false") {
         setClean()
         document.getElementById("btnTile").checked = false
+    } else if (value == "true") {
+        setTiles()
+        document.getElementById("btnTile").checked = true
     }
 }
 

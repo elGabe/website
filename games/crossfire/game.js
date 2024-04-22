@@ -21,7 +21,7 @@ const COLORS = {
     background: Color.fromHex(0x1E1E1E)
 };
 
-loadFont("font", "font.ttf", {filter: "nearest"});
+loadFont("font", "VCR.ttf", {filter: "nearest"});
 
 let highScore = 0;
 let hiscoreValue = localStorage.getItem("hiscore");
@@ -38,13 +38,13 @@ setCursor("none");
 add([
     pos(width()/2, 64),
     anchor("center"),
-    text("Crossed \nFire", {size: 18, font: "font"})
+    text("Crossed \n   Fire", {size: 18, font: "font"})
 ]);
 
 add([
     pos(width()/2, 128),
     anchor("center"),
-    text("click to start", {size: 16, font: "font"})
+    text("click to \n  start", {size: 16, font: "font"})
 ]);
 
 // INPUT EVENTS
@@ -214,7 +214,7 @@ function spawnRockets() {
         easings.easeOutBack
     );
 
-    const intro_r = tween(rocket_r.pos.x, width()-(24+gap), 1,
+    tween(rocket_r.pos.x, width()-(24+gap), 1,
         (x) => {rocket_r.pos.x = x},
         easings.easeOutBack
     );
