@@ -11,6 +11,51 @@ kaboom({
     texFilter: "nearest",
 });
 
+// uniform float glow_size         = 0.5;
+// uniform vec3 glow_colour        = vec3(0, 0, 0);
+// uniform float glow_intensity    = 1;
+// uniform float glow_threshold    = 0.5;
+
+// loadShader("bloom", null, `
+
+// uniform float glow_size;
+// uniform vec3 glow_colour;
+// uniform float glow_intensity;
+// uniform float glow_threshold;
+
+// vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
+    
+//     vec4 pixel = texture2D(tex, uv);
+    
+//     if (pixel.a <= glow_threshold) {
+//         ivec2 size = textureSize(tex, 0);
+
+//         float sum = 0.0;
+//         for (int n = 0; n < 9; ++n) {
+//             uv_y = (pos.y * size.y) + (glow_size * float(n - 4.5));
+//             float h_sum = 0.0;
+//             h_sum += texelFetch(tex, ivec2(uv.x - (4.0 * glow_size), uv_y), 0).a;
+//             h_sum += texelFetch(tex, ivec2(uv.x - (3.0 * glow_size), uv_y), 0).a;
+//             h_sum += texelFetch(tex, ivec2(uv.x - (2.0 * glow_size), uv_y), 0).a;
+//             h_sum += texelFetch(tex, ivec2(uv.x - glow_size, uv_y), 0).a;
+//             h_sum += texelFetch(tex, ivec2(uv.x, uv_y), 0).a;
+//             h_sum += texelFetch(tex, ivec2(uv.x + glow_size, uv_y), 0).a;
+//             h_sum += texelFetch(tex, ivec2(uv.x + (2.0 * glow_size), uv_y), 0).a;
+//             h_sum += texelFetch(tex, ivec2(uv.x + (3.0 * glow_size), uv_y), 0).a;
+//             h_sum += texelFetch(tex, ivec2(uv.x + (4.0 * glow_size), uv.y), 0).a;
+//             sum += h_sum / 9.0;
+//         }
+
+//         pixel = vec4(glow_colour, (sum / 9.0) * glow_intensity);
+
+//         return def_frag() * vec4(0, 0, 1, 1);
+//     }
+// }
+
+// `);
+
+// usePostEffect("bloom");
+
 randSeed(Date.now());
 
 const TWO_PI = Math.PI * 2;
@@ -69,8 +114,6 @@ onKeyPress("f", () => {
 
 // SCENE: GAME
 scene("game", () => {
-
-console.log(highScore);
 
 // UI
 
@@ -617,8 +660,13 @@ let jumpSpeed       = 400;
 const Player = add([
     color(COLORS.object),
     rect(PLAYER_WIDTH, PLAYER_WIDTH, {fill: false}),
+<<<<<<< Updated upstream
     outline(2, COLORS.object),
     pos(width()/2, height()/2),
+=======
+    outline(8, COLORS.object),
+    pos(width()/2, height()*0.5),
+>>>>>>> Stashed changes
     anchor("center"),
     rotate(0),
     area(),
