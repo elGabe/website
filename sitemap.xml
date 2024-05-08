@@ -2,19 +2,19 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/</loc>
-    <lastmod>2024-04-18T19:14:10-04:00</lastmod>
-  </url><url>
-    <loc>/posts/</loc>
-    <lastmod>2024-04-18T19:14:10-04:00</lastmod>
-  </url><url>
     <loc>/about/</loc>
+    <lastmod>2024-04-16T18:35:57-04:00</lastmod>
+  </url><url>
+    <loc>/</loc>
     <lastmod>2024-04-16T18:35:57-04:00</lastmod>
   </url><url>
     <loc>/games/</loc>
     <lastmod>2024-04-16T18:35:57-04:00</lastmod>
   </url><url>
     <loc>/posts/bad-design-beer-pong/</loc>
+    <lastmod>2023-09-04T00:00:00+00:00</lastmod>
+  </url><url>
+    <loc>/posts/</loc>
     <lastmod>2023-09-04T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/posts/burnout-jobs-and-adulthood/</loc>
@@ -24,6 +24,8 @@
     <lastmod>2023-08-21T00:00:00+00:00</lastmod>
   </url><url>
     <loc>/categories/</loc>
+  </url><url>
+    <loc>/now/</loc>
   </url><url>
     <loc>/tags/</loc>
   </url>

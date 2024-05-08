@@ -4,7 +4,7 @@
     <title>Da Gabe Agenda</title>
     <link>/</link>
     <description>Recent content on Da Gabe Agenda</description>
-    <generator>Hugo 0.125.0</generator>
+    <generator>Hugo</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 16 Apr 2024 18:35:57 -0400</lastBuildDate>
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
@@ -42,6 +42,13 @@
       <pubDate>Mon, 21 Aug 2023 00:00:00 +0000</pubDate>
       <guid>/posts/introducing-the-blog/</guid>
       <description>One of the things I do a lot is get high and go off on a rant about an incredibly niche topic I find fascinating. I&amp;rsquo;m also incredibly lucky to have friends that not only put up with that, but at times even find that amusing.&#xA;Not every rant is merited, but every now and then something of note comes out of my head. Unfortunately, that is usually forgotten the next day unless someone wrote it down and reminded me of it later.</description>
+    </item>
+    <item>
+      <title>Now</title>
+      <link>/now/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      <guid>/now/</guid>
+      <description>Now Page Dune Where You Been Fallout New Vegas&#xA;TUNIC&#xA;Aftersun&#xA;Shogun</description>
     </item>
   </channel>
 </rss>

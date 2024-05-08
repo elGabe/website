@@ -9,52 +9,8 @@ kaboom({
     letterbox: true,
     pixelDensity: 1,
     texFilter: "nearest",
+    //canvas: document.querySelector("#gameCanvas")
 });
-
-// uniform float glow_size         = 0.5;
-// uniform vec3 glow_colour        = vec3(0, 0, 0);
-// uniform float glow_intensity    = 1;
-// uniform float glow_threshold    = 0.5;
-
-// loadShader("bloom", null, `
-
-// uniform float glow_size;
-// uniform vec3 glow_colour;
-// uniform float glow_intensity;
-// uniform float glow_threshold;
-
-// vec4 frag(vec2 pos, vec2 uv, vec4 color, sampler2D tex) {
-    
-//     vec4 pixel = texture2D(tex, uv);
-    
-//     if (pixel.a <= glow_threshold) {
-//         ivec2 size = textureSize(tex, 0);
-
-//         float sum = 0.0;
-//         for (int n = 0; n < 9; ++n) {
-//             uv_y = (pos.y * size.y) + (glow_size * float(n - 4.5));
-//             float h_sum = 0.0;
-//             h_sum += texelFetch(tex, ivec2(uv.x - (4.0 * glow_size), uv_y), 0).a;
-//             h_sum += texelFetch(tex, ivec2(uv.x - (3.0 * glow_size), uv_y), 0).a;
-//             h_sum += texelFetch(tex, ivec2(uv.x - (2.0 * glow_size), uv_y), 0).a;
-//             h_sum += texelFetch(tex, ivec2(uv.x - glow_size, uv_y), 0).a;
-//             h_sum += texelFetch(tex, ivec2(uv.x, uv_y), 0).a;
-//             h_sum += texelFetch(tex, ivec2(uv.x + glow_size, uv_y), 0).a;
-//             h_sum += texelFetch(tex, ivec2(uv.x + (2.0 * glow_size), uv_y), 0).a;
-//             h_sum += texelFetch(tex, ivec2(uv.x + (3.0 * glow_size), uv_y), 0).a;
-//             h_sum += texelFetch(tex, ivec2(uv.x + (4.0 * glow_size), uv.y), 0).a;
-//             sum += h_sum / 9.0;
-//         }
-
-//         pixel = vec4(glow_colour, (sum / 9.0) * glow_intensity);
-
-//         return def_frag() * vec4(0, 0, 1, 1);
-//     }
-// }
-
-// `);
-
-// usePostEffect("bloom");
 
 randSeed(Date.now());
 
@@ -66,13 +22,9 @@ const COLORS = {
     background: Color.fromHex(0x1E1E1E)
 };
 
-loadFont("font", "VCR.ttf", {filter: "nearest"});
+loadFont("font", "font.ttf", {filter: "nearest"});
 
 let highScore = 0;
-let hiscoreValue = localStorage.getItem("hiscore");
-if (hiscoreValue) {
-    highScore = Number(hiscoreValue);
-}
 
 // SCENE: MENU
 
@@ -83,13 +35,13 @@ setCursor("none");
 add([
     pos(width()/2, 64),
     anchor("center"),
-    text("Crossed \n   Fire", {size: 18, font: "font"})
+    text("Crossed \nFire", {size: 18, font: "font"})
 ]);
 
 add([
     pos(width()/2, 128),
     anchor("center"),
-    text("click to \n  start", {size: 16, font: "font"})
+    text("click to start", {size: 16, font: "font"})
 ]);
 
 // INPUT EVENTS
@@ -114,6 +66,8 @@ onKeyPress("f", () => {
 
 // SCENE: GAME
 scene("game", () => {
+
+console.log(highScore);
 
 // UI
 
@@ -257,7 +211,7 @@ function spawnRockets() {
         easings.easeOutBack
     );
 
-    tween(rocket_r.pos.x, width()-(24+gap), 1,
+    const intro_r = tween(rocket_r.pos.x, width()-(24+gap), 1,
         (x) => {rocket_r.pos.x = x},
         easings.easeOutBack
     );
@@ -461,7 +415,7 @@ function spawnSpikes() {
     let _x;
     const _y = h/2 + rand(8, height() - h - 8);
     
-    let spikes = [];
+    let spikes = []
 
     for (let i = 0; i < n; i++) {
 
@@ -476,7 +430,7 @@ function spawnSpikes() {
             anchor("center"),
             {
                 side: side,
-                is_active: false
+                is_active: true
             },
             "damage"
         ]);
@@ -487,10 +441,7 @@ function spawnSpikes() {
         );
 
         intro.onEnd(() => {
-            wait(0.5, () => {
-                spike.is_active = true;
-                shake(2);
-            });
+            shake(2);
         });
 
         spikes.push(spike);
@@ -660,13 +611,8 @@ let jumpSpeed       = 400;
 const Player = add([
     color(COLORS.object),
     rect(PLAYER_WIDTH, PLAYER_WIDTH, {fill: false}),
-<<<<<<< Updated upstream
     outline(2, COLORS.object),
     pos(width()/2, height()/2),
-=======
-    outline(8, COLORS.object),
-    pos(width()/2, height()*0.5),
->>>>>>> Stashed changes
     anchor("center"),
     rotate(0),
     area(),
@@ -715,7 +661,6 @@ Player.onCollide("damage", (obj) => {
     Player.collisionIgnore = ["wall"];
     shake(8);
     Player.vel.y = -300;
-    localStorage.setItem("hiscore", highScore.toString());
     wait(2, () => { go("game"); });
 });
 
