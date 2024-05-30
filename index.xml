@@ -4,10 +4,17 @@
     <title>Da Gabe Agenda</title>
     <link>/</link>
     <description>Recent content on Da Gabe Agenda</description>
-    <generator>Hugo</generator>
+    <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 16 Apr 2024 18:35:57 -0400</lastBuildDate>
+    <lastBuildDate>Wed, 29 May 2024 19:59:56 -0400</lastBuildDate>
     <atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>The Dragon</title>
+      <link>/posts/the-dragon/</link>
+      <pubDate>Wed, 29 May 2024 19:59:56 -0400</pubDate>
+      <guid>/posts/the-dragon/</guid>
+      <description>The Dragon A couple weeks ago I was hanging out with a couple friends talking about all sorts of esoteric things: Art, game design, weird game ideas we had, how the human eye distorts images around your peripheral vision like the inside of a fish-eye lens, that sorta thing. One of those led to my friend Marty recommending I watch some of Chris Crawford&amp;rsquo;s lectures on YouTube. If you are not familiar with him, he is best known for being Atari&amp;rsquo;s &amp;ldquo;Graphics Wizard&amp;rdquo; in the 80&amp;rsquo;s; having created games like &amp;ldquo;Excalibur&amp;rdquo;, &amp;ldquo;Eastern Front 1941&amp;rdquo; and &amp;ldquo;Balance of The Planet&amp;rdquo;, and founding the Game Developer&amp;rsquo;s Conference in his living room way back in 1988.</description>
+    </item>
     <item>
       <title>About</title>
       <link>/about/</link>
