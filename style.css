@@ -1,0 +1,141 @@
+
+/* jua-latin-400-normal */
+@font-face {
+  font-family: 'Jua';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/jua@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/jua@latest/latin-400-normal.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+/* vt323-latin-400-normal */
+@font-face {
+  font-family: 'VT323';
+  font-style: normal;
+  font-display: swap;
+  font-weight: 400;
+  src: url(https://cdn.jsdelivr.net/fontsource/fonts/vt323@latest/latin-400-normal.woff2) format('woff2'), url(https://cdn.jsdelivr.net/fontsource/fonts/vt323@latest/latin-400-normal.woff) format('woff');
+  unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+2074,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root {
+	--yellow: 	#FFEE7E;
+	--pink:		#FF0050;
+	--font-main: 'VT323', monospace;
+    --font-secondary: 'Jua', monospace;
+}
+
+::selection {
+  color: #FFFFFF;
+  background: black;
+}
+
+* {
+	cursor: pointer;
+}
+
+a {
+	cursor: help;
+}
+
+body {
+	font-family: var(--font-secondary);
+	font-size: 18px;
+	background: url('assets/gabe.gif') repeat;
+	background-size: 10%;
+
+	margin: auto;
+	padding: 20px;
+	max-width: 720px;
+	text-align: left;
+	background-color: var(--yellow);
+	word-wrap: break-word;
+	line-height: 1.5;
+	font-family: var(--font-secondary);
+}
+
+main {
+	background-color: var(--yellow);
+    border: 3px solid var(--pink);
+    padding: 20px;
+    margin: 25px 0px;
+}
+
+main a {
+	color: var(--yellow);
+	background-color: var(--pink);
+}
+
+nav {
+    background-color: var(--yellow);
+    border-width: 3px;
+    border-style: dashed;
+    border-top: none;
+    border-color: var(--pink);
+}
+
+nav a {
+	font-family: var(--font-main);
+	font-size: 24px;
+    margin-right: 0px;
+    padding: 5px 12px;
+    display: inline-block;
+  	background-color: var(--yellow);
+    color: var(--pink);
+}
+
+nav a:hover {
+	color: var(--yellow);
+    background: var(--pink);
+}
+
+footer {
+	padding: 25px;
+    text-align: center;
+    color: var(--yellow);
+    padding: 0.4em 0.6em !important;
+    background: var(--pink);
+    font-size: 22px;
+}
+
+footer a {
+    color: var(--yellow);
+    background-color: var(--pink);
+    cursor: help;
+    text-decoration: underline;
+}
+
+footer a:hover {
+    color: var(--link-background-color) !important;
+    background-color: var(--link-color);
+    text-decoration: underline;
+}
+
+.title {
+	font-family: var(--font-main);
+	width: 100%;
+	height: 6em;
+	background-color: var(--pink);
+	display: flex;
+	justify-content: left;
+	align-items: center;
+	border: 0;
+}
+
+.title h2 {
+
+	margin-left: 0.2em;
+}
+
+.title a {
+	text-decoration: none;
+	color: var(--yellow);
+	font-size: 3em;
+}
+
+img {
+    max-width: 100%;
+  	display: inline;
+    background-color: transparent;
+}
