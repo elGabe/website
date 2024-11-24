@@ -39,6 +39,16 @@ a {
 	cursor: help;
 }
 
+i {
+    cursor: help;
+    color: var(--font-secondary);
+}
+
+i:hover {
+    cursor: help;
+    color: black;
+}
+
 body {
 	font-family: var(--font-secondary);
 	font-size: 18px;
