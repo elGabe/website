@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+<title>Da Gabe Agenda</title>
+<link>https://www.gabe.fun/</link>
+<description>Gabe's blog.</description>
+
+<item>
+<title>Introducing The Blog</title>
+<link>https://www.gabe.fun/blog/posts/introducing-the-blog/introducing-the-blog.html</link>
+<guid>https://www.gabe.fun/blog/posts/introducing-the-blog/introducing-the-blog.html</guid>
+<pubDate>21 Aug 2023</pubDate>
+<description>Introductory Post</description>
+</item>
+
+<item>
+<title>Burnout, Jobs, and Adulthood</title>
+<link>https://www.gabe.fun/blog/posts/burnout/burnout.html</link>
+<guid>https://www.gabe.fun/blog/posts/burnout/burnout.html</guid>
+<pubDate>23 Aug 2023</pubDate>
+<description>On Burnout</description>
+</item>
+
+<item>
+<title>Beer Pong? More Like Beer Wrong</title>
+<link>https://www.gabe.fun/blog/posts/beer-pong/beer-pong.html</link>
+<guid>https://www.gabe.fun/blog/posts/beer-pong/beer-pong.html</guid>
+<pubDate>04 Sep 2023</pubDate>
+<description>Beer Pong Rules</description>
+</item>
+
+<item>
+<title>The Dragon</title>
+<link>https://www.gabe.fun/blog/posts/the-dragon/the-dragon.html</link>
+<guid>https://www.gabe.fun/blog/posts/the-dragon/the-dragon.html</guid>
+<pubDate>29 May 2024</pubDate>
+<description>Chasing The Dragon</description>
+</item>
+
+<item>
+<title>2024</title>
+<link>https://www.gabe.fun/blog/posts/2024/2024.html</link>
+<guid>https://www.gabe.fun/blog/posts/2024/2024.html</guid>
+<pubDate>30 Nov 2024</pubDate>
+<description>Birthday Blues</description>
+</item>
+
+<!-- <item>
+<title></title>
+<link></link>
+<guid></guid>
+<pubDate></pubDate>
+<description></description>
+</item> -->
+
+</channel>
+</rss>
