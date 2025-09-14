@@ -1,71 +1,125 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="en">
-	<head>
+    <head>
+        <!-- Head Section -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-eidth, initial-scale=1.0" />
 
-		<!-- Head Section -->
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-eidth, initial-scale=1.0">
-		
-		<!-- yuck -->
-		<meta name="keywords" content="games, programming, design, game design, videogames, video games, gamedev">
+        <!-- yuck -->
+        <meta
+            name="keywords"
+            content="games, programming, design, game design, videogames, video games, gamedev"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap"
+            rel="stylesheet"
+        />
 
-		<!-- Boom. -->
-		<title>Da Gabe Agenda</title>
-		
-		<!-- Lead important stuff -->
-		<link rel="stylesheet" href="/style.css">
+        <!-- Boom. -->
+        <title>Da Gabe Agenda</title>
 
-		<!-- CD icon -->
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💿</text></svg>">
+        <!-- Lead important stuff -->
+        <link rel="stylesheet" href="/style-shared.css" />
 
-		<style>
-			img {
-				width: 40%;
-			}
-		</style>
+        <!-- CD icon -->
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💿</text></svg>"
+        />
 
-	
-		<script src="https://kit.fontawesome.com/ed662c7554.js" crossorigin="anonymous"></script>
+        <style>
+            .title {
+                margin-top: 2em;
+            }
 
-	</head>
-	<body>
+            #portrait {
+                width: 40%;
+                text-align: left;
+                float: left;
+                margin-right: 1em;
+                border: 6px, solid, white;
+            }
+        </style>
 
-		<header>
-			<!-- Big red title -->
-			<div class="title">
-				<a href="/">
-					<h2>Da Gabe Agenda</h2>
-				</a>
-			</div>
+        <script
+            src="https://kit.fontawesome.com/ed662c7554.js"
+            crossorigin="anonymous"
+        ></script>
+    </head>
+    <body>
+        <header>
+            <!-- Big red title -->
+            <div class="title">
+                <a href="/">
+                    <h2>About Me</h2>
+                </a>
+            </div>
 
-			<!-- navbar -->
-			<nav>
-				<a href="/">HOME</a>
-				<a href="https://elgabe.itch.io/">GAMES</a>
-				<a href="/film/index.html">FILM</a>
-				<a href="/blog/blog.html">WORDS</a>
-				<a href="/about.html">ABOUT</a>
-			</nav>
-		</header>
+            <!-- navbar -->
+            <nav>
+                <a href="/">HOME</a>
+                <a href="https://elgabe.itch.io/">GAMES</a>
+                <a href="/film/index.html">FILM</a>
+                <a href="/blog/blog.html">WORDS</a>
+                <a href="/about.html">ABOUT</a>
+            </nav>
+        </header>
 
-		<main>
+        <main>
+            <div class="text_content">
+                <p>
+                    My name is Gabe - I’m a game designer &amp; music maker
+                    based in Ontario, Canada.
+                </p>
+                <figure>
+                    <img
+                        id="portrait"
+                        src="/assets/picture.jpeg"
+                        alt="Picture of me"
+                    />
+                </figure>
 
-<h1>About Me</h1>
-<p>My name is Gabe - I’m a game designer &amp; music maker based in Ontario, Canada.</p>
-<img src="/assets/picture.jpeg" alt="Picture of me">
-<p>When I’m not clocked in working on a AAA game, I’m thinking about art, science and philosophy, or working on side projects for fun.</p>
-<p>I decided to start this blog thing to have a convenient place to put blurbs on topics I’m interested about. Anything from lists of cool drug trip scenes in games, or essays about whatever.</p>
-<p>You can email me at <a href="mailto:howdy@gabe.fun">howdy@gabe.fun</a></p>
+                <p>
+                    Lorem Ipsum Generator 2 Paragraphs Copy Lorem ipsum dolor
+                    sit amet consectetur adipiscing elit. Quisque faucibus ex
+                    sapien vitae pellentesque sem placerat. In id cursus mi
+                    pretium tellus duis convallis. Tempus leo eu aenean sed diam
+                    urna tempor. Pulvinar vivamus fringilla lacus nec metus
+                    bibendum egestas. Iaculis massa nisl malesuada lacinia
+                    integer nunc posuere. Ut hendrerit semper vel class aptent
+                    taciti sociosqu. Ad litora torquent per conubia nostra
+                    inceptos himenaeos.
+                    <br /><br />
+                    Lorem ipsum dolor sit amet consectetur adipiscing elit.
+                    Quisque faucibus ex sapien vitae pellentesque sem placerat.
+                    In id cursus mi pretium tellus duis convallis. Tempus leo eu
+                    aenean sed diam urna tempor. Pulvinar vivamus fringilla
+                    lacus nec metus bibendum egestas. Iaculis massa nisl
+                    malesuada lacinia integer nunc posuere. Ut hendrerit semper
+                    vel class aptent taciti sociosqu. Ad litora torquent per
+                    conubia nostra inceptos himenaeos.
+                    <br /><br />
+                    You can email me at
+                    <a href="mailto:howdy@gabe.fun">howdy@gabe.fun</a>
+                </p>
+            </div>
+        </main>
 
-		</main>
-
-		<footer> made with ♥<br> 
-		<a href="https://mastodon.gamedev.place/@dagabedagenda"><i class="fa-brands fa-mastodon"></i></a>
-		<a href="https://bsky.app/profile/gabe.fun"><i class="fa-brands fa-bluesky"></i></a>
-		<a href="https://powdermilk.bandcamp.com"><i class="fa-brands fa-bandcamp"></i></a>
-		<a href="https://elgabe.itch.io"><i class="fa-brands fa-itch-io"></i></a>
-		</footer>
-
-	</body>
+        <footer>
+            made with ♥<br />
+            <a href="https://mastodon.gamedev.place/@dagabedagenda"
+                ><i class="fa-brands fa-mastodon"></i
+            ></a>
+            <a href="https://bsky.app/profile/gabe.fun"
+                ><i class="fa-brands fa-bluesky"></i
+            ></a>
+            <a href="https://powdermilk.bandcamp.com"
+                ><i class="fa-brands fa-bandcamp"></i
+            ></a>
+            <a href="https://elgabe.itch.io"
+                ><i class="fa-brands fa-itch-io"></i
+            ></a>
+        </footer>
+    </body>
 </html>

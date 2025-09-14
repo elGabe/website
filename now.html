@@ -1,115 +1,116 @@
-<!DOCTYPE html>
+<!doctype html>
 
 <html lang="en">
-	<head>
+    <head>
+        <!-- Head Section -->
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-		<!-- Head Section -->
-		<meta charset="UTF-8">
-		<meta name="viewport" content="width=device-eidth, initial-scale=1.0">
+        <!-- yuck -->
+        <meta
+            name="keywords"
+            content="games, programming, design, game design, videogames, video games, gamedev"
+        />
+        <link
+            href="https://fonts.googleapis.com/css2?family=Gaegu:wght@700&display=swap"
+            rel="stylesheet"
+        />
+        <!-- Boom. -->
+        <title>Da Gabe Agenda</title>
 
-		<!-- yuck -->
-		<meta name="keywords" content="games, programming, design, game design, videogames, video games, gamedev">
+        <!-- Lead important stuff -->
+        <link rel="stylesheet" href="style-shared.css" />
 
-		<!-- Boom. -->
-		<title>Da Gabe Agenda</title>
+        <!-- Local stylesheet-->
+        <style>
+            .title {
+                margin-top: 2em;
+            }
 
-		<!-- Lead important stuff -->
-		<link rel="stylesheet" href="style.css">
+            #now {
+                color: var(--yellow);
+                text-align: center;
+            }
 
-		<!-- CD icon -->
-		<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💿</text></svg>">
+            #now h2 {
+                text-decoration: none;
+                margin: 0;
+                color: var(--yellow);
+            }
 
-		<style>
+            #now ul {
+                display: inline-block;
+                text-align: left;
+                list-style-type: none;
+            }
+        </style>
 
-			.container {
-				border: 3px dashed var(--pink);
-				height: 64px;
-				display: flex;
-				align-items: center;
-				box-sizing: border-box;
-				position: relative;
-				margin-bottom: 12px;
-				font-size: 24px;
-			}
+        <!-- CD icon -->
+        <link
+            rel="icon"
+            href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💿</text></svg>"
+        />
 
-			.container img {
-				margin-left: 2%;
-			}
-			.container a {
-				color: var(--pink);
-				background-color: transparent;
-				margin-left: 2%;
-				text-decoration: none;
-			}
+        <script
+            src="https://kit.fontawesome.com/ed662c7554.js"
+            crossorigin="anonymous"
+        ></script>
+    </head>
+    <body>
+        <header>
+            <!--<img id="dino" src="assets/dino.png" />-->
+            <div class="title">
+                <a href="/"> <h2>Now Page</h2> </a>
+            </div>
 
-		</style>
+            <!-- navbar -->
+            <nav>
+                <a href="/">HOME</a>
+                <a href="https://elgabe.itch.io/">GAMES</a>
+                <a href="/film/index.html">FILM</a>
+                <a href="blog/blog.html">WORDS</a>
+                <a href="/about.html">ABOUT</a>
+            </nav>
+        </header>
 
+        <main>
+            <br />
+            <br />
+            <div class="text_content">
+                <h2>What I'm Up To:</h2>
+                <p>
+                    I've just been plugging away at work. Nervous about my PR
+                    application, but hopefully not for much longer :)
+                    <br /><br />
+                    And I've been working on this here website!
+                </p>
+            </div>
+            <div id="now">
+                <br />
+                <h2>MEDIA:</h2>
+                <ul>
+                    <li>🎧️ Cotton Jones</li>
+                    <li>📚️ Remain In Love</li>
+                    <li>📼 Peacemaker (Season 2)</li>
+                    <li>🎮️ Wheel World</li>
+                </ul>
+            </div>
+        </main>
 
-		<script src="https://kit.fontawesome.com/ed662c7554.js" crossorigin="anonymous"></script>
-
-	</head>
-	<body>
-
-		<header>
-			<!-- Big red title -->
-			<div class="title">
-				<a href="/">
-					<h2>Da Gabe Agenda</h2>
-				</a>
-			</div>
-
-			<!-- navbar -->
-			<nav>
-				<a href="/">HOME</a>
-				<a href="https://elgabe.itch.io/">GAMES</a>
-				<a href="/film/index.html">FILM</a>
-				<a href="/blog/blog.html">WORDS</a>
-				<a href="/about.html">ABOUT</a>
-			</nav>
-		</header>
-
-		<main>
-
-			<!-- Page Content -->
-			<content>
-			  <h1 id="now-page">Now Page</h1>
-
-			<!-- Reading -->
-			<div class="container">
-				<img src="https://web.archive.org/web/20041106220710/http://www.geocities.com:80/Waterose_Test/book.gif" alt="Reading">
-				<a href="https://www.goodreads.com/book/show/70401.On_the_Road">On The Road</a>
-				<a href="https://www.goodreads.com/book/show/23129811-on-palestine">| On Palestine</a>
-			</div>
-
-			<!-- Listening -->
-			<div class="container">
-				<img src="https://web.archive.org/web/20060519203721/http://www.geocities.com:80/dannychanbk/tape.gif" alt="Spinning">
-				<a href="https://music.youtube.com/watch?v=ABHkdzwh6-Q&si=RgvQYpSzF1P3m9hN">Going Against Your Mind - Built To Spill</a>
-			</div>
-
-			<!-- Playing -->
-			<div class="container">
-				<img src="https://web.archive.org/web/20091027044054/http://www.geocities.com/wisdomflame/videogame/doomf.gif" alt="Videogaming">
-				<a href="https://www.nintendo.com/us/store/products/mario-vs-donkey-kong-switch/">Mario Vs. Donkey Kong</a>
-				<a href="https://www.animalwell.net">| Animal Well</a>
-			</div>
-
-			<!-- Watching -->
-			<div class="container">
-				<img src="https://web.archive.org/web/20091022052247/http://www.geocities.com/verstappenuk/videogif.gif" alt="Watching">
-				<a href="https://duckduckgo.com/?q=Where+to+watch+Daredevil%3A+Born+Again&from=titles&trigger=where_to_watch_ia&title_id=tt18923754&ia=web">Daredevil: Born Again</a>
-			</div>
-
-			</content>
-
-		</main>
-
-		<footer> made with ♥<br>
-		<a href="https://mastodon.gamedev.place/@dagabedagenda"><i class="fa-brands fa-mastodon"></i></a>
-		<a href="https://bsky.app/profile/gabe.fun"><i class="fa-brands fa-bluesky"></i></a>
-		<a href="https://powdermilk.bandcamp.com"><i class="fa-brands fa-bandcamp"></i></a>
-		<a href="https://elgabe.itch.io"><i class="fa-brands fa-itch-io"></i></a>
-		</footer>
-
-	</body>
+        <footer>
+            made with ♥<br />
+            <a href="https://mastodon.gamedev.place/@dagabedagenda"
+                ><i class="fa-brands fa-mastodon"></i
+            ></a>
+            <a href="https://bsky.app/profile/gabe.fun"
+                ><i class="fa-brands fa-bluesky"></i
+            ></a>
+            <a href="https://powdermilk.bandcamp.com"
+                ><i class="fa-brands fa-bandcamp"></i
+            ></a>
+            <a href="https://elgabe.itch.io"
+                ><i class="fa-brands fa-itch-io"></i
+            ></a>
+        </footer>
+    </body>
 </html>
