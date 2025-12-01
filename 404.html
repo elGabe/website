@@ -26,10 +26,18 @@
 		    #game {
 				size: auto;
 			}
+
+			iframe {
+                display: inline;
+			    width: 450px;
+				height: 850px;
+				border: none;
+			}
+
+
+
 		</style>
-
 		<script src="https://kit.fontawesome.com/ed662c7554.js" crossorigin="anonymous"></script>
-
 	</head>
 	<body>
 
@@ -51,11 +59,17 @@
 		</header>
 
 		<main>
-
 			<!-- Page Content -->
 			<h1>Page Not Found :(</h1>
-
+			<p>But you can play tetris below!</p>
 		</main>
+
+		<iframe src="games/tetris" id=""tetris"></iframe>
+        <main>
+            <p><i class="fa-solid fa-angle-left"></i> <i class="fa-solid fa-angle-right"></i> move piece sideways </p>
+      		<p><i class="fa-solid fa-angle-up"></i> Rotates piece </p>
+      		<p><i class="fa-solid fa-angle-down"></i> moves piece down</p>
+        </main>
 
 		<footer> made with ♥<br>
 		<a href="https://mastodon.gamedev.place/@dagabedagenda"><i class="fa-brands fa-mastodon"></i></a>

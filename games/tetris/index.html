@@ -3,28 +3,485 @@
         <title>Tetris</title>
         <style>
             body {
-                background-color: #ff0050;
+            background-color: #ff0050;
             }
             canvas {
-                position: absolute;
-                /*Center the canvas elements*/
-                transform: translate(-50%, -50%);
-                left: 50%;
-                top: 50%;
-                border: 10px, solid, #ffee7e;
+            position: absolute;
+            /*Center the canvas elements*/
+            transform: translate(-50%, -50%);
+            left: 50%;
+            top: 50%;
+            border: 10px, solid, #ffee7e;
             }
             #next-piece-canvas {
-                position: relative;
-                transform: translate(0, 0);
-                left: 72%;
-                left:
-                top: 17.5%;
+                display: none;
+            position: relative;
+            transform: translate(0, 0);
+            left: 72%;
+            left:
+            top: 17.5%;
             }
         </style>
     </head>
     <body>
         <canvas id="canvas" width="400" height="800"></canvas>
         <canvas id="next-piece-canvas" width="200" height="200"></canvas>
-        <script src="tetris.js"></script>
+        <script>
+            // Source - https://stackoverflow.com/a
+            // Posted by Zeta, modified by community. See post 'Timeline' for change history
+            // Retrieved 2025-12-01, License - CC BY-SA 4.0
+
+            window.addEventListener(
+                "keydown",
+                function (e) {
+                    if (
+                        [
+                            "Space",
+                            "ArrowUp",
+                            "ArrowDown",
+                            "ArrowLeft",
+                            "ArrowRight",
+                        ].indexOf(e.code) > -1
+                    ) {
+                        e.preventDefault();
+                    }
+                },
+                false,
+            );
+
+            const SQUARE_SIZE = 24;
+            const SIZE = 40;
+            const FRAME_PER_SECOND = 24;
+            const GAME_SPEED = 1;
+
+            const Canvas = document.getElementById("canvas");
+            const NextCanvas = document.getElementById("next-piece-canvas");
+            const Ctx = Canvas.getContext("2d");
+            const NxtCtx = NextCanvas.getContext("2d");
+            const SQUARE_COUNT_X = Canvas.width / SIZE;
+            const SQUARE_COUNT_Y = Canvas.height / SIZE;
+
+            const Colors = {
+                DEEP_BLUE: "#0a0e33",
+                RED: "#c8232a",
+                YELLOW: "#f1e038",
+                GREEN: "#14964c",
+                LIGHT_BLUE: "#8cb5ed",
+                BLUE: "#2b65e2",
+                PINK: "#c523ac",
+                WHITE: "#e4dbf0",
+            };
+
+            const ShapeNames = {
+                J: 0,
+                L: 1,
+                O: 2,
+                T: 3,
+                S: 4,
+                Z: 5,
+                I: 6,
+            };
+
+            class Tetramino {
+                constructor(template, color = Colors.PINK) {
+                    this.template = template;
+                    this.x = SQUARE_COUNT_X / 2 - 2;
+                    this.y = 0;
+
+                    this.color = color;
+                }
+
+                checkBottom() {
+                    let result = true;
+
+                    performOnTetramino(this, (i, j) => {
+                        let realX = i + this.getTruncedPos().x;
+                        let realY = j + this.getTruncedPos().y;
+                        if (realY + 1 >= SQUARE_COUNT_Y) {
+                            result = false;
+                            return;
+                        }
+                        if (gameMap[realY + 1][realX] != 0) {
+                            result = false;
+                            return;
+                        }
+                    });
+                    return result;
+                }
+
+                getTruncedPos() {
+                    return { x: Math.trunc(this.x), y: Math.trunc(this.y) };
+                }
+
+                checkLeft() {
+                    let result = true;
+                    performOnTetramino(this, (i, j) => {
+                        let realX = i + this.getTruncedPos().x;
+                        let realY = j + this.getTruncedPos().y;
+                        if (realX - 1 < 0) {
+                            result = false;
+                            return;
+                        }
+                        if (gameMap[realY][realX - 1] != 0) {
+                            result = false;
+                            return;
+                        }
+                    });
+                    return result;
+                }
+
+                checkRight() {
+                    let result = true;
+                    performOnTetramino(this, (i, j) => {
+                        let realX = i + this.getTruncedPos().x;
+                        let realY = j + this.getTruncedPos().y;
+                        if (realX + 1 >= SQUARE_COUNT_X) {
+                            result = false;
+                            return;
+                        }
+                        if (gameMap[realY][realX + 1] != 0) {
+                            result = false;
+                            return;
+                        }
+                    });
+                    return result;
+                }
+
+                moveRight() {
+                    if (this.checkRight()) {
+                        this.x += 1;
+                    }
+                }
+
+                moveLeft() {
+                    if (this.checkLeft()) {
+                        this.x -= 1;
+                    }
+                }
+
+                moveDown() {
+                    if (this.checkBottom()) {
+                        this.y += 1;
+                    }
+                }
+
+                changeRotation() {
+                    let tempTemplate = [];
+                    for (let i = 0; i < this.template.length; i++) {
+                        tempTemplate[i] = this.template[i].slice();
+                    }
+                    let n = this.template.length;
+                    for (let layer = 0; layer < n / 2; layer++) {
+                        let first = layer;
+                        let last = n - 1 - layer;
+                        for (let i = first; i < last; i++) {
+                            let offset = i - first;
+                            let top = this.template[first][i];
+                            // Top = Right
+                            this.template[first][i] = this.template[i][last];
+                            // Right = Bottom
+                            this.template[i][last] =
+                                this.template[last][last - offset];
+                            // Bottom = Left
+                            this.template[last][last - offset] =
+                                this.template[last - offset][first];
+                            // Left = Top
+                            this.template[last - offset][first] = top;
+                        }
+                    }
+
+                    // Out of bounds rotation
+                    performOnTetramino(this, (i, j) => {
+                        let realX = i + this.getTruncedPos().x;
+                        let realY = j + this.getTruncedPos().y;
+                        if (
+                            realX < 0 ||
+                            realX >= SQUARE_COUNT_X ||
+                            realY < 0 ||
+                            realY >= SQUARE_COUNT_Y
+                        ) {
+                            this.template = tempTemplate;
+                        }
+                    });
+                }
+            }
+
+            const shapes = [
+                new Tetramino(
+                    [
+                        [0, 1, 0],
+                        [0, 1, 0],
+                        [1, 1, 0],
+                    ],
+                    Colors.PINK,
+                ),
+
+                new Tetramino(
+                    [
+                        [0, 1, 0],
+                        [0, 1, 0],
+                        [0, 1, 1],
+                    ],
+                    Colors.GREEN,
+                ),
+
+                new Tetramino(
+                    [
+                        [1, 1],
+                        [1, 1],
+                    ],
+                    Colors.BLUE,
+                ),
+
+                new Tetramino(
+                    [
+                        [0, 0, 0],
+                        [1, 1, 1],
+                        [0, 1, 0],
+                    ],
+                    Colors.RED,
+                ),
+
+                new Tetramino(
+                    [
+                        [0, 0, 0],
+                        [0, 1, 1],
+                        [1, 1, 0],
+                    ],
+                    Colors.YELLOW,
+                ),
+
+                new Tetramino(
+                    [
+                        [0, 0, 0],
+                        [1, 1, 0],
+                        [0, 1, 1],
+                    ],
+                    Colors.LIGHT_BLUE,
+                ),
+
+                new Tetramino(
+                    [
+                        [0, 0, 1, 0],
+                        [0, 0, 1, 0],
+                        [0, 0, 1, 0],
+                        [0, 0, 1, 0],
+                    ],
+                    Colors.WHITE,
+                ),
+            ];
+
+            let gameMap;
+            let gameOver;
+            let currentShape;
+            let nextShape;
+            let score;
+
+            let initial2DArray;
+
+            function performOnTetramino(piece, func) {
+                for (let i = 0; i < piece.template.length; i++) {
+                    for (let j = 0; j < piece.template.length; j++) {
+                        if (piece.template[i][j] == 0) {
+                            continue;
+                        }
+                        func(i, j);
+                    }
+                }
+            }
+
+            function getRandomShape() {
+                return Object.create(
+                    shapes[Math.floor(Math.random() * shapes.length)],
+                );
+            }
+
+            function drawRect(x, y, width, height, color, ctx = Ctx) {
+                ctx.fillStyle = color;
+                ctx.fillRect(x, y, width, height);
+            }
+
+            function drawRectStroke(x, y, width, height, color) {
+                Ctx.strokeStyle = color;
+                Ctx.lineWidth = 5;
+                Ctx.strokeRect(x, y, width, height);
+            }
+
+            function drawBackground() {
+                const lineWeight = 4;
+                drawRect(0, 0, Canvas.width, Canvas.height, "#ff0050");
+
+                // for (let i = 0; i < SQUARE_COUNT_X + 1; i++) {
+                //   drawRect(
+                //     SIZE * i - lineWeight,
+                //     0,
+                //     lineWeight,
+                //     Canvas.height,
+                //     "black"
+                //   );
+                // }
+
+                // for (let i = 0; i < SQUARE_COUNT_Y + 1; i++) {
+                //   drawRect(
+                //     0,
+                //     SIZE * i - lineWeight,
+                //     Canvas.width,
+                //     lineWeight,
+                //     "black"
+                //   );
+                // }
+            }
+
+            function drawSquares() {
+                for (let i = 0; i < gameMap.length; i++) {
+                    let t = gameMap[i];
+                    for (let j = 0; j < t.length; j++) {
+                        if (t[j] == 0) continue;
+                        drawRect(j * SIZE, i * SIZE, SIZE, SIZE, "#ffee7e");
+                    }
+                }
+            }
+
+            function drawCurrentTetramino() {
+                for (let i = 0; i < currentShape.template.length; i++) {
+                    for (let j = 0; j < currentShape.template.length; j++) {
+                        if (currentShape.template[j][i] == 0) {
+                            continue;
+                        }
+                        drawRect(
+                            Math.trunc(currentShape.x) * SIZE + SIZE * j,
+                            Math.trunc(currentShape.y) * SIZE + SIZE * i,
+                            SIZE,
+                            SIZE,
+                            "#ffee7e",
+                        );
+                    }
+                }
+            }
+
+            function drawNextShape() {
+                performOnTetramino(nextShape, (i, j) => {
+                    drawRect(
+                        1 * SIZE + SIZE * j,
+                        1 * SIZE + SIZE * i,
+                        SIZE,
+                        SIZE,
+                        "#ffee7e",
+                        NxtCtx,
+                    );
+                });
+            }
+
+            function drawGameOver() {}
+
+            function deleteComplete() {
+                for (let i = 0; i < gameMap.length; i++) {
+                    let t = gameMap[i];
+                    let isComplete = true;
+                    for (let j = 0; j < t.length; j++) {
+                        if (t[j] == 0) {
+                            isComplete = false;
+                        }
+                    }
+
+                    if (isComplete) {
+                        for (let k = i; k > 0; k--) {
+                            gameMap[k] = gameMap[k - 1];
+                        }
+                        let temp = [];
+                        for (let j = 0; j < SQUARE_COUNT_X; j++) {
+                            temp.push(0);
+                        }
+                        gameMap[0] = temp;
+                    }
+                }
+            }
+
+            function resetVars() {
+                initial2DArray = [];
+
+                for (let i = 0; i < SQUARE_COUNT_Y; i++) {
+                    let temp = [];
+                    for (let j = 0; j < SQUARE_COUNT_X; j++) {
+                        temp.push(0);
+                    }
+                    initial2DArray.push(temp);
+                }
+
+                score = 0;
+                gameOver = false;
+                currentShape = getRandomShape();
+                nextShape = getRandomShape();
+                gameMap = initial2DArray;
+            }
+
+            let update = () => {
+                if (gameOver) {
+                    return;
+                }
+                if (currentShape.checkBottom()) {
+                    currentShape.y += 1;
+                } else {
+                    performOnTetramino(currentShape, (k, l) => {
+                        // Set the value of that grid position to a color
+                        gameMap[currentShape.getTruncedPos().y + l][
+                            currentShape.getTruncedPos().x + k
+                        ] = currentShape.color;
+                    });
+
+                    deleteComplete();
+                    currentShape = nextShape;
+                    nextShape = getRandomShape();
+                    if (!currentShape.checkBottom()) {
+                        gameOver = true;
+                    }
+                }
+            };
+
+            let draw = () => {
+                Ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+                NxtCtx.clearRect(0, 0, Canvas.width, Canvas.height);
+                drawBackground();
+                drawSquares();
+                drawCurrentTetramino();
+
+                drawNextShape();
+                if (gameOver) {
+                    drawGameOver();
+                }
+            };
+
+            let gameLoop = () => {
+                setInterval(update, 1000 / GAME_SPEED);
+                setInterval(draw, 1000 / FRAME_PER_SECOND);
+            };
+
+            window.addEventListener("keydown", (event) => {
+                switch (event.key) {
+                    case "ArrowLeft":
+                    case "a":
+                        currentShape.moveLeft();
+                        break;
+
+                    case "ArrowUp":
+                    case "w":
+                        currentShape.changeRotation();
+                        break;
+
+                    case "ArrowRight":
+                    case "d":
+                        currentShape.moveRight();
+                        break;
+
+                    case "ArrowDown":
+                    case "s":
+                        currentShape.moveDown();
+                        break;
+                }
+            });
+
+            resetVars();
+            gameLoop();
+        </script>
     </body>
 </html>
