@@ -205,3 +205,32 @@ footer a:hover {
     display: block;
     text-align: left;
 }
+
+#dino {
+    animation-name: bannerTiltBack;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-out;
+    -webkit-animation-fill-mode: forwards;
+}
+
+#dino:hover {
+    animation-name: bannerTilt;
+    animation-duration: 0.2s;
+    animation-timing-function: ease-out;
+    -webkit-animation-fill-mode: forwards;
+}
+
+@keyframes bannerTiltBack {
+    from {
+        transform: rotate(-10deg);
+    }
+    to {
+        transform: rotate(0deg);
+    }
+}
+
+@keyframes bannerTilt {
+    100% {
+        transform: rotate(-10deg);
+    }
+}
